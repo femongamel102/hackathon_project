@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/app/di.dart';
+import 'package:hackathon_project/presentation/auth/pages/login/view/login_view.dart';
+import 'package:hackathon_project/presentation/auth/view/auth_view.dart';
 import 'package:hackathon_project/presentation/forgot_password/forgot_password_view.dart';
-import 'package:hackathon_project/presentation/login/view/login_view.dart';
 import 'package:hackathon_project/presentation/main/main_view.dart';
 import 'package:hackathon_project/presentation/onboarding/view/onboarding_view.dart';
 import 'package:hackathon_project/presentation/register/register_view.dart';
@@ -11,7 +12,8 @@ import 'package:hackathon_project/presentation/store_details/store_details_view.
 
 class Routes{
   static const String splashRoute= "/";
-  static const String loginRoute= "/login";
+  static const String loginRoute= "/auth";
+  static const String authRoute= "/login";
   static const String registerRoute= "/register";
   static const String forgotPasswordRoute= "/forgotPassword";
   static const String onBoardingRoute= "/onBoarding";
@@ -25,9 +27,11 @@ class RouteGenerator{
     switch(settings.name){
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_)=> const SplashView());
-      // case Routes.loginRoute:
-      //   //initLoginModule();
-      //   return MaterialPageRoute(builder: (_)=> const LoginView());
+      case Routes.authRoute:
+        initLoginModule();
+        return MaterialPageRoute(builder: (_)=> const AuthPageMob());
+      case Routes.loginRoute:
+        return MaterialPageRoute(builder: (_)=> const LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_)=> const RegisterView());
       case Routes.onBoardingRoute:

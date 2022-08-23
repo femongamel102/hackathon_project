@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:hackathon_project/data/data_source/remote_data_source.dart';
 import 'package:hackathon_project/data/mapper/mapper.dart';
+import 'package:hackathon_project/data/network/error_handler.dart';
 import 'package:hackathon_project/data/network/failure.dart';
 import 'package:hackathon_project/data/network/network_info.dart';
 import 'package:hackathon_project/data/network/requests.dart';
@@ -17,17 +18,22 @@ class RepositoryImpl implements Repository {
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       // its connected to internet so it's safe to call api
-      final response = await _remoteDataSource.login(loginRequest);
-      if(response.type == "Success"){
-        // success
-        return Right(response.toDomain());
-      }else{
-        // failure
-        return Left(Failure(400,response.message ?? "business Error Message"));
+      try {
+        final response = await _remoteDataSource.login(loginRequest);
+        if (response.type == ApiInternalStatus.Success) {
+          // success
+          return Right(response.toDomain());
+        } else {
+          // failure
+          return Left(
+              Failure(ResponseCode.BAD_REQUEST, response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       // return internet connection error
-      return Left(Failure(501,"please check your internet connection"));
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

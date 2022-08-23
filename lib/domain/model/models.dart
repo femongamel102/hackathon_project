@@ -19,5 +19,7 @@ class User{
 
 class Authentication{
   User? user;
-  Authentication(this.user);
+  String? accessToken;
+  String? refreshToken;
+  Authentication(this.user,this.accessToken,this.refreshToken);
 }

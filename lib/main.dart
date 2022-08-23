@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/app/di.dart';
 
 import 'app/app.dart';
 
-void main() {
-  runApp( MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initAppModule();
+  runApp(MyApp());
 
 
 }

@@ -18,6 +18,8 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
   Authentication toDomain() {
     return Authentication(
       this?.user.toDomain(),
+      this?.accessToken.orEmpty() ?? Constants.empty,
+      this?.refreshToken.orEmpty() ?? Constants.empty,
     );
   }
 }

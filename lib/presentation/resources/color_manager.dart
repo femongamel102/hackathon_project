@@ -38,7 +38,7 @@ class ColorManager{
   static const blackText = _black;
   static const whiteText = _white;
 
-  ///login
+  ///auth
   static const iconsColor = _doubleSpanishWhite;
   static const authSocialBackground = _transparent;
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hackathon_project/presentation/resources/color_manager.dart';
 import 'package:hackathon_project/presentation/resources/font_manager.dart';
@@ -10,10 +9,15 @@ ThemeData getApplicationTheme() {
     // main colors
     primaryColor: ColorManager.primary,
     primaryColorLight: ColorManager.lightPrimary,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorManager.primary, //<-- SEE HERE
+    ),
     primaryColorDark: ColorManager.darkPrimary,
     disabledColor: ColorManager.grey1,
-    splashColor: ColorManager.lightPrimary, //ripple effect color // when cursor focus on it this color appear
+    splashColor: ColorManager
+        .lightPrimary, //ripple effect color // when cursor focus on it this color appear
     // cardview theme
+    scaffoldBackgroundColor: ColorManager.white,
     cardTheme: CardTheme(
       color: ColorManager.white,
       shadowColor: ColorManager.grey,
@@ -26,7 +30,7 @@ ThemeData getApplicationTheme() {
       elevation: AppSize.s0,
       shadowColor: ColorManager.lightPrimary,
       titleTextStyle:
-      getRegularStyle(fontSize: FontSize.s16, color: ColorManager.black),
+          getRegularStyle(fontSize: FontSize.s16, color: ColorManager.black),
     ),
     // button theme
     buttonTheme: ButtonThemeData(
@@ -43,7 +47,7 @@ ThemeData getApplicationTheme() {
         ),
         primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s12),
+          borderRadius: BorderRadius.circular(AppSize.s8),
         ),
       ),
     ),
@@ -65,36 +69,35 @@ ThemeData getApplicationTheme() {
 
     //       text theme
     textTheme: TextTheme(
-        displayLarge: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: FontSize.s16),
-        displayMedium: getSemiBoldStyle(
-          color: ColorManager.black, fontSize: FontSize.s13),
-        headlineLarge: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: FontSize.s20),
-        headlineMedium: getRegularStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s14),
-        titleMedium: getMediumStyle(
-            color: ColorManager.black, fontSize: FontSize.s14),
-        bodyLarge: getRegularStyle(color: ColorManager.grey1),
-        bodyMedium: getBoldStyle(color: ColorManager.grey),
-        bodySmall: getRegularStyle(color: ColorManager.greyText ),
-
+      displayLarge:
+          getSemiBoldStyle(color: ColorManager.black, fontSize: FontSize.s16),
+      displayMedium:
+          getSemiBoldStyle(color: ColorManager.black, fontSize: FontSize.s13),
+      headlineLarge:
+          getSemiBoldStyle(color: ColorManager.black, fontSize: FontSize.s20),
+      headlineMedium:
+          getRegularStyle(color: ColorManager.darkGrey, fontSize: FontSize.s14),
+      titleMedium:
+          getMediumStyle(color: ColorManager.black, fontSize: FontSize.s14),
+      bodyLarge: getRegularStyle(color: ColorManager.grey1),
+      bodyMedium: getBoldStyle(color: ColorManager.grey),
+      bodySmall: getRegularStyle(color: ColorManager.greyText),
     ),
-    //input decoration theme (text form field)
-    inputDecorationTheme: InputDecorationTheme(
+
+     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),
       fillColor: ColorManager.divider,
       hintStyle:
-      getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+          getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
       labelStyle:
-      getMediumStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+          getMediumStyle(color: ColorManager.grey, fontSize: FontSize.s14),
       errorStyle: getRegularStyle(color: ColorManager.error),
 
       //enabbled border style
-      enabledBorder:  const OutlineInputBorder(
+      enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.transparent,
-          width: AppSize.s1_5,
+          color: ColorManager.divider,
+          width: AppSize.s1,
         ),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
@@ -102,26 +105,26 @@ ThemeData getApplicationTheme() {
       // focused border style
       focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.transparent,
-          width: AppSize.s1_5,
+          color: ColorManager.divider,
+          width: AppSize.s1,
         ),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       //error border style
-      errorBorder: const OutlineInputBorder(
+      errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.transparent,
-          width: AppSize.s1_5,
+          color: ColorManager.error,
+          width: AppSize.s1,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
       //focused border style
-      focusedErrorBorder: const OutlineInputBorder(
-        borderSide:  BorderSide(
-          color: ColorManager.transparent,
-          width: AppSize.s1_5,
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primary,
+          width: AppSize.s1,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
       ),
     ),
   );
