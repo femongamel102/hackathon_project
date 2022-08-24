@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackathon_project/app/app_prefs.dart';
 import 'package:hackathon_project/app/di.dart';
 import 'package:hackathon_project/presentation/auth/pages/login/viewmodel/login_viewmodel.dart';
 import 'package:hackathon_project/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -21,6 +22,7 @@ class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = instance<LoginViewModel>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
@@ -34,7 +36,8 @@ class _LoginViewState extends State<LoginView> {
       if (isLoggedIn) {
         //Navigate to main Screen
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+          _appPreferences.setUserLoggedIn();
+          Navigator.of(context).pushReplacementNamed(Routes.onBoardingRoute);
         });
       }
     });

@@ -62,6 +62,17 @@ class EmptyState extends FlowState {
       StateRendererType.fullScreenEmptyState;
 }
 
+class SuccessState extends FlowState {
+  String message;
+  SuccessState(this.message);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() => StateRendererType.popupSuccess;
+}
+
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(BuildContext context, Widget contentScreenWidget,
       Function retryActionFunction) {
@@ -70,7 +81,8 @@ extension FlowStateExtension on FlowState {
         {
           if (getStateRendererType() == StateRendererType.popupLoadingState) {
             //show popup loading
-            showPupup(context, getStateRendererType(), getMessage());
+            showPopup(context, getStateRendererType(), getMessage(),
+                title: AppStrings.success);
             //show content ui of screen
             return contentScreenWidget;
           } else {
@@ -86,7 +98,7 @@ extension FlowStateExtension on FlowState {
           dismissDialog(context);
           if (getStateRendererType() == StateRendererType.popupErrorState) {
             //show popup error
-            showPupup(context, getStateRendererType(), getMessage());
+            showPopup(context, getStateRendererType(), getMessage());
             //show content ui of screen
             return contentScreenWidget;
           } else {
@@ -103,6 +115,15 @@ extension FlowStateExtension on FlowState {
               stateRendererType: getStateRendererType(),
               message: getMessage(),
               retryActionFunction: () {});
+        }
+      case SuccessState:
+        {
+          // i should check if we are showing loading popup to remove it before showing success popup
+          dismissDialog(context);
+          // show popup
+          showPopup(context, StateRendererType.popupSuccess, getMessage(),
+              title: AppStrings.success);
+          return contentScreenWidget;
         }
       case ContentState:
         {
@@ -127,14 +148,16 @@ extension FlowStateExtension on FlowState {
     }
   }
 
-  showPupup(BuildContext context, StateRendererType stateRendererType,
-      String message) {
+  showPopup(
+      BuildContext context, StateRendererType stateRendererType, String message,
+      {String title = Constants.empty}) {
     WidgetsBinding.instance.addPostFrameCallback((_) => {
           showDialog(
               context: context,
               builder: (BuildContext context) => StateRenderer(
                   stateRendererType: stateRendererType,
                   message: message,
+                  title: title,
                   retryActionFunction: () {}))
         });
   }

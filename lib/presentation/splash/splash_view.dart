@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hackathon_project/app/app_prefs.dart';
+import 'package:hackathon_project/app/di.dart';
 import 'package:hackathon_project/presentation/resources/assets_manager.dart';
 import 'package:hackathon_project/presentation/resources/color_manager.dart';
 import 'package:hackathon_project/presentation/resources/constants_manager.dart';
@@ -14,13 +16,19 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   Timer? _timer;
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   _startDelay() {
     _timer = Timer(const Duration(seconds: AppConstant.splashDelay), _goNext);
   }
 
-  _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.authRoute);
+  _goNext() async {
+    _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
+          if (isUserLoggedIn)
+            {Navigator.pushReplacementNamed(context, Routes.onBoardingRoute)}
+          else
+            {Navigator.pushReplacementNamed(context, Routes.authRoute)}
+        });
   }
 
   @override

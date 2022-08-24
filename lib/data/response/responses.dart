@@ -7,6 +7,8 @@ class BaseResponse {
   String? type;
   @JsonKey(name: "message")
   String? message;
+  @JsonKey(name: "data")
+  String? data;
 }
 
 @JsonSerializable()
@@ -53,4 +55,9 @@ class AuthenticationResponse extends BaseResponse {
   // to json
   //this returns to AuthenticationResponse
   Map<String,dynamic> toJson() => _$AuthenticationResponseToJson(this);
+}
+
+@JsonSerializable()
+class ForgotPasswordResponse extends BaseResponse{
+
 }
