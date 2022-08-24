@@ -36,4 +36,16 @@ class RepositoryImpl implements Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) {
+    // TODO: implement forgetPassword
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Authentication>> signup(SignUpRequest signUpRequest) {
+    // TODO: implement signup
+    throw UnimplementedError();
+  }
 }
